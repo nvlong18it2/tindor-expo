@@ -23,13 +23,17 @@ export type MessageT = {
 
 export type ProfileItemT = {
   age?: string;
+  image: any;
   info1?: string;
   info2?: string;
   info3?: string;
   info4?: string;
   location?: string;
-  matches: string;
+  match: string;
   name: string;
+  setLogin: any;
+    
+  }
 };
 
 export type TabBarIconT = {

@@ -71,7 +71,7 @@ export default StyleSheet.create({
   actionsCardItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 30,
+    paddingVertical: 10,
   },
   button: {
     width: 60,
@@ -188,7 +188,7 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   name: {
-    paddingTop: 25,
+    paddingTop: 10,
     paddingBottom: 5,
     color: DARK_GRAY,
     fontSize: 15,
@@ -223,7 +223,7 @@ export default StyleSheet.create({
     height: DIMENSION_HEIGHT,
   },
   top: {
-    paddingTop: 50,
+    paddingTop: 20,
     marginHorizontal: 10,
     flexDirection: "row",
     justifyContent: "space-between",

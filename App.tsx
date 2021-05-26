@@ -1,103 +1,130 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Matches, Messages, Profile } from "./screens";
+import { Home, Matches, Messages, Profile, Login, Register } from "./screens";
 import { PRIMARY_COLOR, DARK_GRAY, BLACK, WHITE } from "./assets/styles";
 import TabBarIcon from "./components/TabBarIcon";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const App = () => (
-  <NavigationContainer>
+const StackScreen = () =>{
+    return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Tab"
-        options={{ headerShown: false, animationEnabled: false }}
-      >
-        {() => (
-          <Tab.Navigator
-            tabBarOptions={{
-              showLabel: false,
-              activeTintColor: PRIMARY_COLOR,
-              inactiveTintColor: DARK_GRAY,
-              labelStyle: {
-                fontSize: 14,
-                textTransform: "uppercase",
-                paddingTop: 10,
-              },
-              style: {
-                backgroundColor: WHITE,
-                borderTopWidth: 0,
-                marginBottom: 0,
-                shadowOpacity: 0.05,
-                shadowRadius: 10,
-                shadowColor: BLACK,
-                shadowOffset: { height: 0, width: 0 },
-              },
+      name="Tab"
+      options={{ headerShown: false, animationEnabled: true }}
+    >
+      {() => (
+        <Tab.Navigator
+          tabBarOptions={{
+            showLabel: false,
+            activeTintColor: PRIMARY_COLOR,
+            inactiveTintColor: DARK_GRAY,
+            labelStyle: {
+              fontSize: 14,
+              textTransform: "uppercase",
+              paddingTop: 10,
+            },
+            style: {
+              backgroundColor: WHITE,
+              borderTopWidth: 0,
+              marginBottom: 0,
+              shadowOpacity: 0.05,
+              shadowRadius: 10,
+              shadowColor: BLACK,
+              shadowOffset: { height: 0, width: 0 },
+            },
+          }}
+        >
+          <Tab.Screen
+            name="Explore"
+            component={Home}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <TabBarIcon
+                  focused={focused}
+                  iconName="search"
+                  text="Explore"
+                />
+              ),
             }}
-          >
-            <Tab.Screen
-              name="Explore"
-              component={Home}
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  <TabBarIcon
-                    focused={focused}
-                    iconName="search"
-                    text="Explore"
-                  />
-                ),
-              }}
-            />
+          />
 
-            <Tab.Screen
-              name="Matches"
-              component={Matches}
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  <TabBarIcon
-                    focused={focused}
-                    iconName="heart"
-                    text="Matches"
-                  />
-                ),
-              }}
-            />
+          <Tab.Screen
+            name="Matches"
+            component={Matches}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <TabBarIcon
+                  focused={focused}
+                  iconName="heart"
+                  text="Matches"
+                />
+              ),
+            }}
+          />
 
-            <Tab.Screen
-              name="Chat"
-              component={Messages}
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  <TabBarIcon
-                    focused={focused}
-                    iconName="chatbubble"
-                    text="Chat"
-                  />
-                ),
-              }}
-            />
+          <Tab.Screen
+            name="Chat"
+            component={Messages}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <TabBarIcon
+                  focused={focused}
+                  iconName="chatbubble"
+                  text="Chat"
+                />
+              ),
+            }}
+          />
 
-            <Tab.Screen
-              name="Profile"
-              component={Profile}
-              options={{
-                tabBarIcon: ({ focused }) => (
-                  <TabBarIcon
-                    focused={focused}
-                    iconName="person"
-                    text="Profile"
-                  />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-        )}
-      </Stack.Screen>
-    </Stack.Navigator>
-  </NavigationContainer>
-);
+          <Tab.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <TabBarIcon
+                  focused={focused}
+                  iconName="person"
+                  text="Profile"
+                />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+
+      )}
+    </Stack.Screen>
+  </Stack.Navigator>
+    )
+  }
+const StackLogin =  () => {
+      return(
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={Login} 
+            options={{ headerShown: false, animationEnabled: true }} />
+          <Stack.Screen name="Register" component={Register} 
+            options={{ headerShown: false, animationEnabled: true }} />
+        </Stack.Navigator>
+      )
+}
+const App = () => {
+  const [isLogin, setLogin] = useState(true)
+  return(
+    (
+      <NavigationContainer>
+        {
+          isLogin ?
+          StackScreen()
+          : (
+            StackLogin()
+          )
+        }
+
+      </NavigationContainer>
+    )
+  )
+}
 
 export default App;

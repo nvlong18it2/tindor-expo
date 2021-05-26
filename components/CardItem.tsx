@@ -19,6 +19,7 @@ const CardItem = ({
   matches,
   name,
 }: CardItemT) => {
+
   // Custom styling
   const fullWidth = Dimensions.get("window").width;
 
@@ -33,17 +34,17 @@ const CardItem = ({
 
   const nameStyle = [
     {
-      paddingTop: hasVariant ? 10 : 15,
+      paddingTop: hasVariant ? 5 : 5,
       paddingBottom: hasVariant ? 5 : 7,
       color: "#363636",
       fontSize: hasVariant ? 15 : 30,
     },
   ];
-
+  
   return (
     <View style={styles.containerCardItem}>
       {/* IMAGE */}
-      <Image source={image} style={imageStyle} />
+      <Image source={{uri: image,}} style={imageStyle} />
 
       {/* MATCHES */}
       {matches && (
@@ -75,9 +76,9 @@ const CardItem = ({
       {/* ACTIONS */}
       {hasActions && (
         <View style={styles.actionsCardItem}>
-          <TouchableOpacity style={styles.miniButton}>
+          {/* <TouchableOpacity style={styles.miniButton}>
             <Icon name="star" color={STAR_ACTIONS} size={14} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity style={styles.button}>
             <Icon name="heart" color={LIKE_ACTIONS} size={25} />
@@ -87,9 +88,9 @@ const CardItem = ({
             <Icon name="close" color={DISLIKE_ACTIONS} size={25} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.miniButton}>
+          {/* <TouchableOpacity style={styles.miniButton}>
             <Icon name="flash" color={FLASH_ACTIONS} size={14} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       )}
     </View>

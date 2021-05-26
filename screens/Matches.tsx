@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   View,
@@ -10,37 +10,50 @@ import {
 import { CardItem, Icon } from "../components";
 import DEMO from "../assets/data/demo";
 import styles, { DARK_GRAY } from "../assets/styles";
+import firebase from "../firebase.config"
+require("firebase/firestore");
+const db = firebase.firestore();
 
-const Matches = () => (
-  <ImageBackground
-    source={require("../assets/images/bg.png")}
-    style={styles.bg}
-  >
-    <View style={styles.containerMatches}>
-      <View style={styles.top}>
-        <Text style={styles.title}>Matches</Text>
-        <TouchableOpacity>
-          <Icon name="ellipsis-vertical" color={DARK_GRAY} size={20} />
-        </TouchableOpacity>
-      </View>
+function Matches(){
+  const [data, setData] = useState([]);
 
-      <FlatList
-        numColumns={2}
-        data={DEMO}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
+     db.collection('users')
+     .onSnapshot(function(snapshot)
+      {setData(snapshot.docs.map((doc)=>doc.data()))
+     }    
+     )
+
+  return (
+    <ImageBackground
+      source={require("../assets/images/bg.png")}
+      style={styles.bg}
+    >
+      <View style={styles.containerMatches}>
+        <View style={styles.top}>
+          <Text style={styles.title}>Matches</Text>
           <TouchableOpacity>
-            <CardItem
-              image={item.image}
-              name={item.name}
-              isOnline={item.isOnline}
-              hasVariant
-            />
+            <Icon name="ellipsis-vertical" color={DARK_GRAY} size={20} />
           </TouchableOpacity>
-        )}
-      />
-    </View>
-  </ImageBackground>
-);
+        </View>
+  
+        <FlatList
+          numColumns={2}
+          data={data}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity>
+              <CardItem
+                image={item.image}
+                name={item.name}
+                isOnline={item.isOnline}
+                hasVariant
+              />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </ImageBackground>
+  );
+}
 
 export default Matches;
